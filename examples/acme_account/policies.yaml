@@ -1,0 +1,16 @@
+policies:
+  WAREHOUSE_AUTO_SUSPEND:
+    enabled: true
+    severity: HIGH
+  NO_PUBLIC_GRANTS:
+    enabled: true
+    severity: HIGH
+  PII_MASKING:
+    enabled: true
+    severity: MEDIUM
+  WAREHOUSE_RESOURCE_MONITOR:
+    enabled: true
+    severity: MEDIUM
+  SHARES_SECURE_VIEWS:
+    enabled: true
+    severity: HIGH

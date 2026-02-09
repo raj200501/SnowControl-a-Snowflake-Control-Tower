@@ -1,0 +1,60 @@
+account_name: ACME
+warehouses:
+  - name: WH_INGEST
+    size: MEDIUM
+    auto_suspend: 300
+    auto_resume: true
+    scaling_policy: STANDARD
+    max_cluster_count: 2
+    resource_monitor: RM_CORE
+  - name: WH_ANALYTICS
+    size: LARGE
+    auto_suspend: 120
+    auto_resume: true
+    scaling_policy: ECONOMY
+    max_cluster_count: 3
+    resource_monitor: RM_CORE
+databases:
+  - name: UTILS
+  - name: SALES
+schemas:
+  - name: CORE
+    database: SALES
+roles:
+  - name: ROLE_ANALYST
+    comment: "Read-only analytics role"
+  - name: ROLE_PLATFORM
+    comment: "Platform engineering"
+grants:
+  - role: ROLE_ANALYST
+    privilege: SELECT
+    on_type: TABLE
+    on_name: SALES.CORE.ORDERS
+  - role: ROLE_PLATFORM
+    privilege: OWNERSHIP
+    on_type: DATABASE
+    on_name: SALES
+resource_monitors:
+  - name: RM_CORE
+    credit_quota: 500
+    frequency: MONTHLY
+    notify_at_percent: [50, 80]
+tags:
+  - name: PII
+    allowed_values: ["true", "false"]
+masking_policies:
+  - name: MASK_PII
+    expression: "'***REDACTED***'"
+tag_attachments:
+  - tag: PII
+    object_type: COLUMN
+    object_name: SALES.CORE.CUSTOMERS.SSN
+    value: "true"
+masking_attachments:
+  - policy: MASK_PII
+    object_type: COLUMN
+    object_name: SALES.CORE.CUSTOMERS.SSN
+shares:
+  - name: SHARE_SALES
+    accounts: ["ACME_PARTNER"]
+    secure_views: ["SECURE_SALES_VIEW"]
