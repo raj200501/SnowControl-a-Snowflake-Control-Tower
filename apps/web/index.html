@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FrostSight Control Plane</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <h1>FrostSight</h1>
+        <p>Cost + Performance + Governance</p>
+        <nav>
+          <button data-page="overview" class="active">Overview</button>
+          <button data-page="cost">Cost Explorer</button>
+          <button data-page="queries">Query Explorer</button>
+          <button data-page="anomalies">Anomalies</button>
+          <button data-page="governance">Governance</button>
+          <button data-page="settings">Settings</button>
+        </nav>
+      </aside>
+      <main>
+        <header>
+          <h2 id="page-title">Overview</h2>
+          <p>Snowflake leadership dashboard (demo mode)</p>
+        </header>
+        <section id="content"></section>
+      </main>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
