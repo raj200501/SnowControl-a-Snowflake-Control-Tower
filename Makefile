@@ -1,22 +1,12 @@
-.PHONY: bootstrap verify test lint typecheck docs demo
+.PHONY: bootstrap verify test demo dev-api
 
 bootstrap:
-	python -m pip install -e ".[dev]"
+	@echo "No external dependencies required for demo mode."
 
-verify: lint typecheck test docs
+verify: test
 
 test:
-	pytest
+	./scripts/verify.sh
 
-lint:
-	ruff format --check .
-	ruff check .
-
-typecheck:
-	mypy src
-
-docs:
-	mkdocs build -f docs/mkdocs.yml
-
-demo:
-	snowcontrol demo
+dev-api:
+	PYTHONPATH=apps/api python -m app.main

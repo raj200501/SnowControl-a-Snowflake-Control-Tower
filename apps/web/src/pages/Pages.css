@@ -1,0 +1,101 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.page h2 {
+  font-size: 1.5rem;
+}
+
+.panel {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-row input {
+  background: #0b1120;
+  border: 1px solid #1e293b;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #e2e8f0;
+}
+
+.sql-list {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+
+.sql-list code {
+  display: block;
+  background: #0b1120;
+  padding: 12px;
+  border-radius: 8px;
+  color: #38bdf8;
+}
+
+.explain-box {
+  background: #0b1120;
+  border-radius: 8px;
+  padding: 12px;
+  color: #cbd5f5;
+}
+
+.cta-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  background: #1e293b;
+}
+
+.pill.success {
+  background: #22c55e;
+  color: #0b1120;
+}
+
+.pill.warn {
+  background: #f97316;
+  color: #0b1120;
+}
+
+.note {
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+.error {
+  background: #7f1d1d;
+  padding: 12px;
+  border-radius: 8px;
+  color: #fecaca;
+}

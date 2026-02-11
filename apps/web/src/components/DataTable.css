@@ -1,0 +1,27 @@
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid #1e293b;
+}
+
+.table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.table-wrapper th,
+.table-wrapper td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #1e293b;
+  font-size: 0.9rem;
+}
+
+.table-wrapper th {
+  color: #94a3b8;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}

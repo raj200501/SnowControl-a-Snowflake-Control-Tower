@@ -1,67 +1,64 @@
-# SnowControl: Snowflake Control Tower
+# FrostSight: Snowflake Cost + Performance + Governance Control Plane
 
-**Tagline:** Offline-first Snowflake Platform Engineering + FinOps + Governance-as-Code toolkit.
+FrostSight is a CTO-grade, offline-first control plane for Snowflake engineering leadership. It runs fully in demo mode without credentials, ships with deterministic ACCOUNT_USAGE-like data, and exposes cost, performance, and governance insights through a lightweight Python API and a static dashboard.
 
-SnowControl is a deterministic control plane for Snowflake. Define account resources in YAML,
-compute a plan, render Snowflake SQL, and update a local state backend — all without credentials.
+## Architecture
+```mermaid
+graph TD
+  subgraph Frontend
+    Web[Static HTML/CSS/JS Dashboard]
+  end
+  subgraph Backend
+    API[Python HTTP API /api/v1]
+    Analytics[Analytics + Lint Engine]
+    Ingest[CSV Ingestion]
+  end
+  subgraph Data
+    SQLite[(SQLite Demo DB)]
+    CSVs[Demo CSV Data]
+  end
 
-## Why SnowControl?
-- **Platform engineering**: manage warehouses, databases, schemas, roles, tags, masking policies, and shares.
-- **Governance-as-code**: enforce guardrails with policy packs.
-- **FinOps**: run cost analytics on offline sample data.
-- **Offline-first**: no Snowflake credentials needed for CI or local demos.
+  Web --> API
+  API --> Analytics
+  API --> SQLite
+  Ingest --> SQLite
+  CSVs --> Ingest
+```
 
-## Quickstart (under 5 minutes)
+## 3-minute quickstart (demo mode)
 ```bash
-make bootstrap
-make demo
+python data/generate_demo_data.py
+PYTHONPATH=apps/api python -m app.main
 ```
+Open `apps/web/index.html` in your browser and confirm data loads from the local API.
 
-## CLI overview
+## Demo mode (default)
+- Runs on deterministic CSVs in `data/demo/`.
+- Ingests into SQLite (`data/demo/frostsight_demo.db`).
+- No credentials required.
+
+## Snowflake mode (optional)
+Set Snowflake env vars to see configuration status in Settings.
+
 ```bash
-snowcontrol init
-snowcontrol validate
-snowcontrol plan
-snowcontrol render
-snowcontrol apply
-snowcontrol finops report
+export SNOWFLAKE_ACCOUNT=...
+export SNOWFLAKE_USER=...
 ```
 
-## Demo output (text-only screenshot)
+## Repo layout
 ```
-$ snowcontrol plan
-[
-  {
-    "action": "CREATE",
-    "resource_type": "warehouse",
-    "name": "WH_INGEST",
-    "details": {
-      "name": "WH_INGEST",
-      "size": "MEDIUM",
-      "auto_suspend": 300,
-      "auto_resume": true,
-      "scaling_policy": "STANDARD",
-      "max_cluster_count": 2,
-      "resource_monitor": "RM_CORE"
-    }
-  }
-]
+apps/api        # Python backend (stdlib only)
+apps/web        # Static dashboard
+packages/shared # legacy shared types (unused in demo)
 ```
 
-## Project structure
-```
-src/snowcontrol/    # core logic
-examples/           # sample YAML configs
-finops/             # offline analytics
-out/                # report outputs
-```
+## Screenshots
+![FrostSight dashboard](docs/screenshots/overview.svg)
 
-## Limitations
-SnowControl is not a full Snowflake emulator. It is a deterministic control plane + SQL generator
-that focuses on safe planning, policy enforcement, and local state tracking.
-
-## Contributing
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+## Development
+```bash
+make verify
+```
 
 ## License
 MIT. See [LICENSE](LICENSE).
